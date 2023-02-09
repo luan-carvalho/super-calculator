@@ -1,0 +1,28 @@
+h1 {
+    text-align: center;
+}
+
+#numbers {
+    text-align: center;
+}
+
+#button {
+    text-align: center;
+}
+
+input {
+    text-align: center;
+    font-size: 25px;
+    width: 250px;
+    height: 50px;
+    margin: 10px;
+
+}
+
+button {
+    margin: 20px;
+    width: 100px;
+    height: 30px;
+    cursor: pointer;
+    
+}
