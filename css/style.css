@@ -1,13 +1,8 @@
 h1 {
     text-align: center;
-}
-
-#numbers {
-    text-align: center;
-}
-
-#button {
-    text-align: center;
+    font-size: 80px;
+    margin: 40px;
+    font-family: Arial;
 }
 
 input {
@@ -16,7 +11,7 @@ input {
     width: 250px;
     height: 50px;
     margin: 10px;
-
+    font-family: Arial;
 }
 
 button {
@@ -24,5 +19,23 @@ button {
     width: 100px;
     height: 30px;
     cursor: pointer;
-    
+    font-family: Arial;
 }
+
+#numbers-div {
+    text-align: center;
+}
+
+#button-div {
+    text-align: center;
+}
+
+
+#enter-a-number {
+    text-align: center;
+    margin: 50px;
+    font-size: 30px;
+    font-family: Arial;
+}
+
+
