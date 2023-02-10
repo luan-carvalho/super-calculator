@@ -38,4 +38,22 @@ button {
     font-family: Arial;
 }
 
+#results-list {
+    list-style: none;
+}
+
+#result-node {
+    list-style: none;
+    margin: 10px;
+    border: 10px solid black;
+}
+
+#list-head {
+    padding: 10px;
+}
+
+#list-result {
+    padding: 10px;
+}
+
 

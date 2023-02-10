@@ -1,18 +1,19 @@
-var state = {sum: 0,
-subtraction1: 0,
-subtraction2: 0,
-division1: 0,
-division2: 0,
-multiplication: 0,
-exponentiation1: 0,
-exponentiation2: 0,
-squareRoot1: 0,
-squareRoot2: 0,
-factorial1: 0,
-factorial2: 0,
-percentage1: 0,
-percentage2: 0,
-average: 0}
+var state = {
+    sum: ["A + B", 0],
+    subtraction1: ["A - B", 0],
+subtraction2: ["B - A", 0],
+division1: ["A / B", 0],
+division2: ["B / A", 0],
+multiplication: ["A x B", 0],
+exponentiation1: ["A ** B", 0],
+exponentiation2: ["B ** A", 0],
+squareRoot1: ["SQRT of A", 0],
+squareRoot2: ["SQRT of B", 0],
+factorial1: ["Factorial of A", 0],
+factorial2: ["Factorial of B", 0],
+percentage1: ["Percentage that a represents from B", 0],
+percentage2: ["Percentage that B represents from A", 0],
+average: ["Average of A and B", 0]}
 
 //function that is called when the page is opened
 function start() {
@@ -26,6 +27,14 @@ function render() {
 
     renderInputBoxes();
     renderCalculateButton();
+
+}
+
+//function to calculate and render the results
+function results() {
+
+    calculate();
+    renderResults();
 
 }
 
@@ -51,23 +60,38 @@ function renderInputBoxes() {
 //function that renders the results
 function renderResults() {
 
-    var resultDiv = document.querySelector("#results-div");
-    resultDiv.innerHTML = '';
+        var resultDiv = document.querySelector("#results-div");
+        resultDiv.innerHTML = '';
 
-    var resultsUl = document.createElement('ul');
+        var resultsUl = document.createElement('ul');
+        resultsUl.innerHTML = '';
+        resultsUl.id = 'results-list'
 
+        Object.keys(state).
+        forEach(x => {
 
-    Object.keys(state).
-    forEach(x => {
+            var mainUl = document.createElement('ul');
+            mainUl.innerHTML = '';
+            mainUl.id = 'result-node';
 
-        var resultLi = document.createElement('li');
-        resultLi.textContent = state[x];
-        resultsUl.appendChild(resultLi);
-    
-    });
+            var headLi = document.createElement('li');
+            headLi.id = 'list-head';
 
+            var numberLi = document.createElement('li');
+            numberLi.id = 'list-result';
 
-    resultDiv.appendChild(resultsUl);
+            headLi.textContent = state[x][0];
+            numberLi.textContent = state[x][1];
+
+            mainUl.appendChild(headLi);
+            mainUl.appendChild(numberLi);
+
+            resultsUl.append(mainUl);
+
+            var resultLi = document.createElement('li');
+            resultsUl.appendChild(resultLi);});
+
+        resultDiv.appendChild(resultsUl);
 }
 
 //function that creates the calculate button
@@ -76,7 +100,7 @@ function createCalculateButton() {
     var button = document.createElement('button');
     button.innerHTML = '';
     button.textContent = 'Calculate';
-    button.addEventListener('click', calculate);
+    button.addEventListener('click', results);
     return button;
 
 }
@@ -88,7 +112,7 @@ function createFirstNumberInput() {
     inputFirstNumber.innerHTML = '';
     inputFirstNumber.type = 'number';
     inputFirstNumber.id = 'number1';
-    inputFirstNumber.placeholder = 'Enter number 1'
+    inputFirstNumber.placeholder = 'Enter number 1 (A)'
     return inputFirstNumber;
 
 }
@@ -100,13 +124,14 @@ function createSecondNumberInput() {
     inputSecondNumber.innerHTML = '';
     inputSecondNumber.type = 'number';
     inputSecondNumber.id = 'number2';
-    inputSecondNumber.placeholder = 'Enter number 2'
+    inputSecondNumber.placeholder = 'Enter number 2 (B)'
     return inputSecondNumber;
 
 }
 
 
-function calculate() {
+//function that gets the user input and retun them in a array
+function getUserInput() {
 
     var number1 = Number(document.querySelector('#number1').value);
     var number2 = Number(document.querySelector('#number2').value);
@@ -128,27 +153,36 @@ function calculate() {
         paragraph.id = 'enter-a-number'
         paragraph.textContent = 'Please, use only positive integers'
         resultDiv.appendChild(paragraph);
-        
-    
+
     } else {
 
-        state.sum = sum(number1, number2);
-        state.subtraction1 = subtract(number1, number2);
-        state.subtraction2 = subtract(number2, number1);
-        state.division1 = divide(number1, number2);
-        state.division1 = divide(number1, number2);
-        state.multiplication = multiply(number1, number2);
-        state.exponentiation = power(number1, number2);
-        state.squareRoot1 = sqrt(number1);
-        state.squareRoot2 = sqrt(number2);
-        state.factorial1 = factorial(number1);
-        state.factorial2 = factorial(number2);
-        state.percentage = percent(number1, number2);
-        state.average = avg(number1, number2);
-        
-        renderResults();
+        return [number1, number2];
 
     }
+
+
+}
+
+//function that makes all the operations with the two number given by the user
+function calculate() {
+
+        [number1, number2] = getUserInput();
+
+        state.sum[1] = sum(number1, number2);
+        state.subtraction1[1] = subtract(number1, number2);
+        state.subtraction2[1] = subtract(number2, number1);
+        state.division1[1] = divide(number1, number2);
+        state.division2[1] = divide(number2, number1);
+        state.multiplication[1] = multiply(number1, number2);
+        state.exponentiation1[1] = power(number1, number2);
+        state.exponentiation2[1] = power(number2, number1);
+        state.squareRoot1[1] = sqrt(number1);
+        state.squareRoot2[1] = sqrt(number2);
+        state.factorial1[1] = factorial(number1);
+        state.factorial2[1] = factorial(number2);
+        state.percentage1[1] = percent(number1, number2) + "%";
+        state.percentage2[1] = percent(number2, number1) + "%";
+        state.average[1] = avg(number1, number2);
 
 }
 
